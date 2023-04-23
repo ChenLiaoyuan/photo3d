@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+	id="WebApp_ID" version="3.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  <display-name>photo3d</display-name>
+  <!-- 默认首页 -->
+  <welcome-file-list>
+    <welcome-file>head</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 加载spring配置 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- 设置这个项目spring配置的路径 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+          classpath:spring-config.xml
+      </param-value>
+  </context-param>
+  
+</web-app>

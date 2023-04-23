@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liaoyuan.photo3d.mapper.VisitMapper">
+	<resultMap id="visitMap" type="visit">
+		<id property="id" column="id"/>
+		<result property="visitCounts" column="visit_counts"/>
+		<result property="visitDate" column="visit_date"/>
+		<result property="userAgent" column="user_agent"/>
+		<result property="ylzd" column="ylzd"/>
+		<result property="ylzd2" column="ylzd2"/>
+	</resultMap>
+	
+	<select id="getVisitCounts" resultType="int">
+		select ifnull(max(visit_counts),0) from visit
+	</select>
+	
+	<select id="getNewestVisit" resultMap="visitMap">
+		select * from visit t where t.visit_counts = (select max(visit_counts) from visit)
+	</select>
+	
+	<insert id="insertVisit" parameterType="visit">
+		insert into visit(visit_counts,visit_date,user_agent,ylzd,ylzd2) 
+			values(#{visitCounts},#{visitDate},#{userAgent},#{ylzd},#{ylzd2})
+	</insert>
+	
+</mapper>	

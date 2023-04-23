@@ -1,0 +1,448 @@
+html,body{
+	height: 100%;
+	margin: 0px;
+}
+
+/*放置立方体*/
+.wrap{
+	width: 100%;
+	height: 300px;
+	margin-top: 450px;
+	/*Z轴的视野，默认是为0*/
+	perspective: 1000px;
+}
+
+/*立方体*/
+.wrap .cube{
+	width: 300px;
+	height: 300px;
+	margin: 0 auto;
+	position: relative;
+	/*cube div的类型为3D，就是将cube里面的元素用3D的方式来展示*/
+	transform-style: preserve-3d;
+	/*transform: rotateX(0deg) rotateY(45deg);*/
+	animation: rotate_cube 15s linear infinite;
+	-webkit-animation:rotate_cube 15s linear infinite;
+}
+
+/*关键帧，立方体从0度转到360度*/
+@keyframes rotate_cube{
+	from{transform:rotateX(0deg) rotateY(0deg)}
+	to{transform:rotateX(360deg) rotateY(360deg)}
+}
+
+/*--------------------------------外面的立方体------------------------------*/
+.wrap .cube div{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	font-size: 30px;
+	color: #fff;
+	text-align: center;
+	background-image: url(../img/img.png);
+	background-repeat: no-repeat;
+	/*center居中背景图片*/
+	background-position:center;
+	/*cover:让背景图片填充满背景区，超出部分隐藏，仅显示中间*/
+	background-size: cover;
+	opacity: 0.2;
+	/*设置div transform变换时的动画 ease-in 缓入*/
+	transition: transform 0.35s ease-in;
+}
+
+.wrap .cube .front{
+	transform: translateZ(150px);
+}
+
+.wrap .cube .back{
+	/*旋转之后，原来的坐标系跟着一起旋转，所以全部都是往Z轴正向移动*/
+	transform: rotateY(180deg) translateZ(150px);
+}
+
+.wrap .cube .left{
+	transform: rotateY(-90deg) translateZ(150px);
+}
+
+.wrap .cube .right{
+	transform: rotateY(90deg) translateZ(150px);
+}
+
+.wrap .cube .up{
+	transform: rotateX(90deg) translateZ(150px);
+}
+
+.wrap .cube .bottom{
+	transform: rotateX(-90deg) translateZ(150px);
+}
+
+/*--------------------------------里面的立方体------------------------------*/
+.wrap .cube i{
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	margin: 50%;
+	top: -75px;
+	left: -75px;
+	background-image: url(../img/img.png);
+	background-repeat: no-repeat;
+	/*center居中背景图片*/
+	background-position:center;
+	/*cover:让背景图片填充满背景区，超出部分隐藏，仅显示中间*/
+	background-size: cover;
+}
+
+.wrap .cube .i-front{
+	transform: translateZ(75px);
+}
+
+.wrap .cube .i-back{
+	transform: rotateY(180deg) translateZ(75px);
+}
+
+.wrap .cube .i-left{
+	transform: rotateY(-90deg) translateZ(75px);
+}
+
+.wrap .cube .i-right{
+	transform: rotateY(90deg) translateZ(75px);
+}
+
+.wrap .cube .i-up{
+	transform: rotateX(90deg) translateZ(75px);
+}
+
+.wrap .cube .i-bottom{
+	transform: rotateX(-90deg) translateZ(75px);
+}
+
+/*--------------------------------外面的立方体，鼠标经过------------------------------*/
+.wrap .cube:hover div{
+	opacity: 0.9;
+}
+
+.wrap .cube:hover .front{
+	transform: translateZ(300px);
+}
+
+.wrap .cube:hover .back{
+	transform: rotateY(180deg) translateZ(300px);
+}
+
+.wrap .cube:hover .left{
+	transform: rotateY(-90deg) translateZ(300px);
+}
+
+.wrap .cube:hover .right{
+	transform: rotateY(90deg) translateZ(300px);
+}
+
+.wrap .cube:hover .up{
+	transform: rotateX(90deg) translateZ(300px);
+}
+
+.wrap .cube:hover .bottom{
+	transform: rotateX(-90deg) translateZ(300px);
+}
+
+/*button区域*/
+.buttonWrap{
+	width: 500px;
+	height: 50px;
+	margin: 0 auto;
+	position: relative;
+	padding-top: 15px;
+	opacity: 1;
+}
+
+/*button样式*/
+.button {
+	display: inline-block;
+	position: absolute;
+	width: 100px;
+	height: 30px;
+	font-size: 15px;
+	font-family: "微软雅黑";
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: black;
+	background-color: white;
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 9px #999; /*阴影*/
+}
+
+.button:hover {
+	background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), aqua);
+	background-image: linear-gradient(top, rgba(255, 255, 255, 0), aqua);
+}
+
+.button:active{
+	background-color: #27dbef;
+	box-shadow: 0 5px #666; /*阴影向上*/
+	transform: translateY(4px); /*按钮向下，产生物理按下的效果*/
+}
+
+/*默认的文件输入按钮不好看，直接隐藏了，使用按钮代替触发*/
+input{
+	display: none;
+}
+
+/*播放器样式*/
+.player{
+	width: 330px;
+	height: 410px;
+	position: absolute;
+	bottom: 16px;
+	color: #fff;
+	background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2) ),url(../img/bluesky.jpg);
+	background-size: 330px 410px;
+	background-repeat: no-repeat;
+	opacity: .7;
+	z-index: 2;
+}
+
+.player .button{
+	top: -30px;
+	opacity: 1;
+}
+
+/*歌曲列表*/
+.songList{
+	width: 100%;
+	height: 200px;
+	overflow: auto;
+}
+
+/*歌曲选中，鼠标变成点击样式*/
+.songList ol li{
+	cursor: pointer;
+}
+
+/*歌曲选中，添加背景颜色*/
+.songList ol li:hover{
+	cursor: pointer;
+	background-color:rgba(238,238,238,0.5);
+}
+
+/*歌名*/
+.songInfo{
+	width: 100%;
+	height: 30px;
+	text-align: center;
+	font-size: 23px;
+	margin-top: 5px;
+}
+
+/*音乐控件*/
+.player .controls {
+	position: relative;
+	margin-top: 15px;
+}
+
+/*播放控件*/
+.player .controls .play {
+	cursor: pointer;
+	width: 70px;
+	height: 70px;
+	border: 2px solid #ccc;
+	border-radius: 50%;
+	margin: auto;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	font-size: 35px;
+}
+
+/*选中播放键变大*/
+.player .controls .play:hover {
+	font-size: 40px
+}
+
+/*上一首控件*/
+.player .controls .previous {
+	cursor: pointer;
+	position: absolute;
+	top: 25px;
+	font-size: 35px;
+	left: 30px;
+}
+
+.player .controls .previous:hover {
+	font-size: 40px
+}
+
+/*下一首控件*/
+.player .controls .next {
+	cursor: pointer;
+	position: absolute;
+	top: 25px;
+	font-size: 35px;
+	right: 30px;
+}
+
+.player .controls .next:hover {
+	font-size: 40px
+}
+
+/*时间轨*/
+.player .time {
+	width: 100%;
+	height: 50px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	color: #fff;
+	cursor: pointer;
+	z-index: 10;
+}
+
+/*进度条*/
+.player .progress {
+	width: 0;
+	height: 50px;
+	position: absolute;
+	bottom: 0;
+	background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0), aqua);
+	background-image: linear-gradient(top, rgba(255, 255, 255, 0), aqua);
+	opacity: .6;
+}
+
+/*星空区域*/
+.canvas {
+	width:100%;
+	height:100%;
+	display:inline-block;
+	vertical-align:baseline;
+	position:absolute;
+	z-index:-2;
+}
+
+/*星空背景*/
+.canvaszz{
+	width:100%;
+	height:100%;
+	background-image: url(../img/starBg.png);
+	background-repeat: no-repeat;
+	/*center居中背景图片*/
+	background-position:center;
+	/*cover:让背景图片填充满背景区，超出部分隐藏，仅显示中间*/
+	background-size: cover;
+	position:absolute;
+	z-index:0.1;
+	filter:alpha(opacity=40);  
+  	-moz-opacity:0.4;  
+  	-khtml-opacity: 0.4;  
+  	opacity: 0.4;
+}
+
+.progressWrap,.shareLinkWrap{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	flex-wrap: wrap;
+	display: none;
+}
+
+.progress-font{
+	margin: 5px;
+	font-size: 20px;
+	color: #fff;
+}
+
+progress{
+	width: 320px;
+	height: 16px;
+	border: 1px solid #05d2d2;  
+    background-color: #e6e6e6; /*底色*/
+    color: #05d2d2; /*IE10*/
+}
+
+progress::-moz-progress-bar { background: #05d2d2; } /*进度颜色*/
+progress::-webkit-progress-bar { background: #e6e6e6; } /*底色*/
+progress::-webkit-progress-value  { background: #05d2d2; } /*进度颜色*/
+
+.shareDiv{
+	width: 380px;
+	background: #fff;
+	box-shadow: 5px 5px 8px #999;
+	font-size: 25px;
+	color: black;
+	border: 1px solid #f8f8f8;
+	border-radius: 4px;
+	display: inline-block;
+	padding-bottom: 5px;
+	font-family: "微软雅黑";
+}
+
+.shareLink-font{
+	background: #f6f4f0;
+	padding: 5px;
+	text-align: left;
+}
+
+.share-textarea{
+	width: 370px;
+	height: 75px;
+	margin: 5px;
+	margin-bottom: 25px;
+	resize: none;
+}
+
+.share-check{
+	font-size: 38px;
+	display: inline-block;
+	float: right;
+	cursor: pointer;
+	margin-right: 5px;
+	color: #0ba989;
+}
+
+.copyButton{
+	display: inline-block;
+	padding: 5px 12px;
+	border-radius: 3px;
+	background-color: #0ba989;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 3px;
+}
+
+.copyButton:hover{
+    background-color: #35bda2;
+    color: #FFFFFF;
+}
+
+.copyButton:active{
+    background-color: #204d74;
+}

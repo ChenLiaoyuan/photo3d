@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liaoyuan.photo3d.mapper.MusicMapper">
+	<resultMap id="musicMap" type="music">
+		<id property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="musicName" column="music_name"/>
+		<result property="musicPath" column="music_path"/>
+		<result property="insertDate" column="insert_date"/>
+		<result property="order" column="order"/>
+		<result property="ylzd" column="ylzd"/>
+	</resultMap>
+	
+	<select id="selectMusics" resultMap="musicMap">
+		select * from music where user_id = #{userId} order by `order` asc limit 0,8
+	</select>
+	
+	<insert id="insertMusic" parameterType="music">
+		insert into music values(default,#{userId},#{musicName},#{musicPath},#{insertDate},#{order},#{ylzd})
+	</insert>
+	
+</mapper>	

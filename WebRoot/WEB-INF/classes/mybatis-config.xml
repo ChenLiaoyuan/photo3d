@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 引入数据库配置文件 -->
+	<properties resource="jdbc.properties"/>
+	
+	<settings>
+		<!-- 设置日志为log4j -->
+		<setting name="logImpl" value="LOG4J"/>
+	</settings>
+	
+	<typeAliases>
+		<!-- 设置别名 -->
+		<package name="com.liaoyuan.photo3d.pojo"/>
+	</typeAliases>
+	
+	<!-- 配置数据库 -->
+	<environments default="mysql">
+		<environment id="mysql">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="${mysql.driver}"/>
+				<property name="url" value="${mysql.url}"/>
+				<property name="username" value="${mysql.username}" />
+				<property name="password" value="${mysql.password}"/>
+				<!-- 发送到数据库的侦测查询，用来检验连接是否正处于正常工作秩序中，并准备接受请求 -->
+				<property name="poolPingQuery" value="select now()"/>
+				<!-- 是否启用侦测查询，默认为false。如果启用则必须设置poolPingQuery，
+					并用一个执行效率高的sql语句设置为其值 -->
+				<property name="poolPingEnabled" value="true"/>
+			</dataSource>
+		</environment>
+		
+		<environment id="oracle">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="${oracle.driver}"/>
+				<property name="url" value="${oracle.url}"/>
+				<property name="username" value="${oracle.username}"/>
+				<property name="password" value="${oracle.password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 根据不同的数据识别不同的数据连接 -->
+	<databaseIdProvider type="DB_VENDOR">
+		<property name="MySQL" value="mysql"/>
+		<property name="Oracle" value="oracle"/>
+	</databaseIdProvider>
+	
+	<!-- 映射文件 -->
+	<mappers>
+		<package name="com.liaoyuan.photo3d.mapper"/>
+	</mappers>
+</configuration>
+	
